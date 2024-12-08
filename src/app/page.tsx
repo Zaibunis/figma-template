@@ -1,9 +1,17 @@
-import Image from "next/image";
+import Index from "./component/index";
+import Navbar from "./component/navbar";
+import Header from "./component/header";
+import Brand from "./component/brand";
+import Arrival from "./component/arrival";
 
-export default function Home() {
+export default function Land() {
   return (
-   <div>
-    <h1>grrrr</h1>
+   <div className="bg-gray-100">
+    <Index />
+    <Navbar />
+    <Header />
+    <Brand />
+<Arrival />
    </div>
   );
 }
