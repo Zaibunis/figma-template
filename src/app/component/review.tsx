@@ -176,8 +176,8 @@ const Review = () => {
           </div>
         </div>
 
-        {/* Newsletter Signup */}
-        <div className="w-full bg-black rounded-lg py-8 px-6 md:px-12 flex flex-col md:flex-row justify-between items-center">
+         {/* Newsletter Signup */}
+         <div className="w-full bg-black rounded-lg py-8 px-6 md:px-12 flex flex-col md:flex-row justify-between items-center">
           {/* Text Section */}
           <div className="text-left text-white mb-4 md:mb-0">
             <span className="text-3xl font-extrabold block mb-4">
