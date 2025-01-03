@@ -148,7 +148,7 @@ const Filters = () => {
           >
             {selectedColor === color && ( // Display tick mark if this color is selected
               <Image
-                src="/tick.png"
+                src="/Frame (14).png"
                 alt="Tick"
                 width={12}
                 height={12}
