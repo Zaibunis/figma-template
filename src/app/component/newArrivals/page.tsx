@@ -81,19 +81,19 @@ export default function NewArrivals() {
               <p className="font-bold text-black">{product.price}</p>
             )}
 
-            {/* Hover Details */}
-            <div className="absolute inset-0 bg-black bg-opacity-80 flex flex-col justify-center items-center text-white p-4 rounded-lg opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out">
-              <h3 className="text-lg font-bold mb-2">{product.title}</h3>
-              <p className="text-sm">{product.description}</p>
-              <Link href={`/component/newArrivals/${product.id}`}>
-                <button className="mt-4 px-4 py-2 bg-yellow-500 text-black rounded-lg font-semibold">
-                  View Details
-                </button>
-              </Link>
-            </div>
-          </div>
-        ))}
+           {/* Hover Overlay */}
+      <div className="absolute inset-0 bg-black bg-opacity-80 flex flex-col justify-center items-center text-white p-4 opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out">
+        <h3 className="text-lg font-bold mb-2 text-center">{product.title}</h3>
+        <p className="text-sm mb-4 text-center">{product.description}</p>
+        <Link href={`/component/newArrivals/${product.id}`}>
+          <button className="mt-4 px-6 py-2 bg-yellow-500 text-black rounded-lg font-semibold transition duration-300 ease-in-out hover:bg-yellow-400">
+            View Details
+          </button>
+        </Link>
       </div>
+    </div>
+  ))}
+</div>
       
       {/* View All Button */}
       <div className="text-center mt-10">
