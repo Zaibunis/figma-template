@@ -44,7 +44,6 @@ export default function ProductDetail({ params }: any) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isShopOpen, setIsShopOpen] = useState(false);
 
-
   const { id } = params;
   const productId = parseInt(id);
 
