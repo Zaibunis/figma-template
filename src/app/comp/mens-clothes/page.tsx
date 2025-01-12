@@ -23,8 +23,58 @@ import {
   import { Input } from "@/components/ui/input";
   import { useState } from "react"
 
+  interface Product {
+    id: number;
+    img: string;
+    title: string;
+    rating: number;
+    price: string;
+    originalPrice?: string;
+    discount?: string;
+    description: string;
+  }
+
 
 const Page = () => {
+
+  const products: Product[] = [
+    {
+      id: 1,
+      img: "/Frame 32 (3).png",
+      title: "Polo with Contrast Trims",
+      rating: 4.0,
+      price: "$212",
+      originalPrice: "$242",
+      discount: "-20%",
+      description: "Stylish polo with contrast trims.",
+    },
+    {
+      id: 2,
+      img: "/Frame 33 (7).png",
+      title: "Gradient Graphic T-shirt",
+      rating: 3.5,
+      price: "$145",
+      description: "Stylish gradient t-shirt for casual wear.",
+    },
+    {
+      id: 3,
+      img: "/Frame 34 (2).png",
+      title: "Polo with Tipping Details",
+      rating: 4.5,
+      price: "$180",
+      description: "Premium polo shirt with elegant tipping details.",
+    },
+    {
+      id: 4,
+      img: "/Frame 38 (2).png",
+      title: "Black Striped T-shirt",
+      rating: 5.0,
+      price: "$120",
+      originalPrice: "$150",
+      discount: "-30%",
+      description: "Comfortable black striped t-shirt.",
+    },
+  ]
 
   const [selectedSize, setSelectedSize] = useState<string | null>(null); // Track selected size
 
@@ -228,13 +278,15 @@ const Page = () => {
             </div>
 
             {/* Cart Icon */}
-            <Image
-              src="/Frame (3).png"
-              alt="Cart"
-              width={24}
-              height={24}
-              className="cursor-pointer"
-            />
+<Link href="/comp/cart">
+  <Image
+    src="/Frame (3).png"
+    alt="Cart"
+    width={24}
+    height={24}
+    className="cursor-pointer"
+  />
+</Link>
 
             {/* Profile Icon */}
             <Image
@@ -671,92 +723,49 @@ const Page = () => {
         <h2 className="text-3xl font-extrabold text-black ml-[55px]">YOU MIGHT ALSO LIKE</h2>
       </div>
 
-      {/* Product Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-20 px-4 md:px-8">
-        {/* Product Card 1 */}
-        <div className="text-center">
-          <Image
-            src="/Frame 32 (3).png"
-            alt="T-shirt with Tape Details"
-            width={200}
-            height={200}
-            className="mx-auto rounded-lg shadow"
-          />
-          <p className="mt-4 font-bold text-lg text-black ">Polo with Contrast Trims</p>
-          <div className="text-yellow-400 text-sm my-1">
-            ★★★★☆ <span className="text-black text-sm">4.0/</span>
-            <span className="text-gray-500">5</span>
-          </div>
-          <div className="flex justify-center gap-2 text-gray-500">
-            <span className="font-bold text-black">$212</span>
-            <span className="line-through">$242</span>
-            <span className="text-red-500 bg-red-200 text-sm w-[58px] h-[28px] rounded-lg flex items-center justify-center">
-              -20%
-            </span>
-          </div>
-       </div>
-
-        {/* Product Card 2 */}
-        <div className="text-center">
-          <Image
-            src="/Frame 33 (7).png"
-            alt="Skinny Fit Jeans"
-            width={200}
-            height={200}
-            className="mx-auto rounded-lg shadow"
-          />
-          <p className="mt-4 font-bold text-lg text-black ">Gradient Graphic  T-shirt</p>
-          <div className="text-yellow-400 text-sm my-1">
-            ★★★☆☆ <span className="text-black text-sm">3.5/</span>
-            <span className="text-gray-500">5</span>
-          </div>
-          <div className="flex justify-center gap-2 text-gray-500">
-            <span className="font-bold text-black">$145</span>
-            
-          </div>
-        </div>
-
-        {/* Product Card 3 */}
-        <div className="text-center">
-          <Image
-            src="/Frame 34 (2).png"
-            alt="Checkered Shirt"
-            width={200}
-            height={200}
-            className="mx-auto rounded-lg shadow"
-          />
-          <p className="mt-4 font-bold text-lg text-black">Polo with Tipping Details</p>
-          <div className="text-yellow-400 text-sm my-1">
-            ★★★★☆ <span className="text-black text-sm">4.5/</span>
-            <span className="text-gray-500">5</span>
-          </div>
-          <p className="font-bold text-black">$180</p>
-        </div>
-
-        {/* Product Card 4 */}
-        <div className="text-center">
-          <Image
-            src="/Frame 38 (2).png"
-            alt="Sleeve Striped T-shirt"
-            width={200}
-            height={200}
-            className="mx-auto rounded-lg shadow"
-          />
-          <p className="mt-4 font-bold text-lg text-black">Black Striped  T-shirt</p>
-          <div className="text-yellow-400 text-sm my-1">
-            ★★★☆☆ <span className="text-black text-sm">5.0/</span>
-            <span className="text-gray-500">5</span>
-          </div>
-          <div className="flex justify-center gap-2 text-gray-500">
-            <span className="font-bold text-black">$120</span>
-            <span className="line-through">$150</span>
-            <span className="text-red-500 bg-red-200 text-sm w-[58px] h-[28px] rounded-lg flex items-center justify-center">
-              -30%
-            </span>
-          </div>
-        </div>
+     {/* Product Grid */}
+<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-20 px-4 md:px-8">
+  {products.map((product) => (
+    <div key={product.id} className="text-center relative group">
+      <Image
+        src={product.img}
+        alt={product.title}
+        width={200}
+        height={200}
+        className="mx-auto rounded-lg shadow"
+      />
+      <p className="mt-4 font-bold text-lg text-black">{product.title}</p>
+      <div className="text-yellow-400 text-sm my-1">
+        {"★".repeat(Math.floor(product.rating)) + "☆".repeat(5 - Math.floor(product.rating))}{" "}
+        <span className="text-black text-sm">{product.rating}/</span>
+        <span className="text-gray-500">5</span>
       </div>
 
+      {product.discount ? (
+        <div className="flex justify-center gap-2 text-gray-500">
+          <span className="font-bold text-black">{product.price}</span>
+          <span className="line-through">{product.originalPrice}</span>
+          <span className="text-red-500 bg-red-200 text-sm w-[58px] h-[28px] rounded-lg flex items-center justify-center">
+            {product.discount}
+          </span>
+        </div>
+      ) : (
+        <p className="font-bold text-black">{product.price}</p>
+      )}
+
+      {/* Hover Overlay */}
+      <div className="absolute inset-0 bg-black bg-opacity-80 flex flex-col justify-center items-center text-white p-4 opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out">
+        <h3 className="text-lg font-bold mb-2 text-center">{product.title}</h3>
+        <p className="text-sm mb-4 text-center">{product.description}</p>
+        <Link href={`/comp/mens-clothes/${product.id}`}>
+          <button className="mt-4 px-6 py-2 bg-yellow-500 text-black rounded-lg font-semibold transition duration-300 ease-in-out hover:bg-yellow-400">
+            View Details
+          </button>
+        </Link>
+      </div>
+    </div>
+  ))}
+</div>
     
     
 
