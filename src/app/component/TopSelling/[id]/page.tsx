@@ -251,13 +251,15 @@ export default function ProductDetail({ params }: any) {
             </div>
 
             {/* Cart Icon */}
-            <Image
-              src="/Frame (3).png"
-              alt="Cart"
-              width={24}
-              height={24}
-              className="cursor-pointer"
-            />
+<Link href="/comp/cart">
+  <Image
+    src="/Frame (3).png"
+    alt="Cart"
+    width={24}
+    height={24}
+    className="cursor-pointer"
+  />
+</Link>
 
             {/* Profile Icon */}
             <Image

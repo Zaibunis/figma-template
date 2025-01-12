@@ -255,14 +255,16 @@ export default function ProductDetail({ params }: any) {
               <Image src="/Frame 3.png" alt="Search Icon" width={477} height={48} />
             </div>
 
-            {/* Cart Icon */}
-            <Image
-              src="/Frame (3).png"
-              alt="Cart"
-              width={24}
-              height={24}
-              className="cursor-pointer"
-            />
+           {/* Cart Icon */}
+<Link href="/comp/cart">
+  <Image
+    src="/Frame (3).png"
+    alt="Cart"
+    width={24}
+    height={24}
+    className="cursor-pointer"
+  />
+</Link>
 
             {/* Profile Icon */}
             <Image
