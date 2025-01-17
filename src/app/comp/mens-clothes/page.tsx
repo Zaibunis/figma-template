@@ -288,7 +288,8 @@ const Page = () => {
   />
 </Link>
 
-            {/* Profile Icon */}
+           {/* Profile Icon */}
+           <Link href="/component/authentication">
             <Image
               src="/Frame (4).png"
               alt="Profile"
@@ -296,6 +297,7 @@ const Page = () => {
               height={24}
               className="cursor-pointer"
             />
+            </Link>
           </div>
 
           {/* Hamburger Icon for Mobile */}

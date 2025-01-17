@@ -261,7 +261,8 @@ export default function ProductDetail({ params }: any) {
   />
 </Link>
 
-            {/* Profile Icon */}
+           {/* Profile Icon */}
+           <Link href="/component/authentication">
             <Image
               src="/Frame (4).png"
               alt="Profile"
@@ -269,6 +270,7 @@ export default function ProductDetail({ params }: any) {
               height={24}
               className="cursor-pointer"
             />
+            </Link>
           </div>
 
           {/* Hamburger Icon for Mobile */}

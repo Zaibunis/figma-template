@@ -218,6 +218,7 @@ export default function Page() {
 </Link>
 
             {/* Profile Icon */}
+           <Link href="/component/authentication">
             <Image
               src="/Frame (4).png"
               alt="Profile"
@@ -225,6 +226,7 @@ export default function Page() {
               height={24}
               className="cursor-pointer"
             />
+            </Link>
           </div>
 
           {/* Hamburger Icon for Mobile */}

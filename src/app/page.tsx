@@ -11,6 +11,7 @@ import Footer from "./component/footer"
 
 
 
+
 export default function Land() {
   return (
   <div>
