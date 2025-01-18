@@ -1,6 +1,7 @@
 'use client'
 
 import Image from "next/image"
+import Main from "@/app/product/page"
 import Link from "next/link"
 import {
   NavigationMenu,
@@ -22,6 +23,8 @@ import {
   } from "@/components/ui/breadcrumb"
   import { Input } from "@/components/ui/input";
   import { useState } from "react"
+
+import Main3 from "@/app/product-3/page"
 
   interface Product {
     id: number;
@@ -724,6 +727,7 @@ const Page = () => {
       <div className="text-center mb-8 relative">
         <h2 className="text-3xl font-extrabold text-black ml-[55px]">YOU MIGHT ALSO LIKE</h2>
       </div>
+      <Main3/>
 
      {/* Product Grid */}
 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-20 px-4 md:px-8">

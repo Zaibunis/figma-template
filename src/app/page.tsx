@@ -7,7 +7,8 @@ import DressStyle from "./component/dressStyle";
 import DressStyleCard from "./component/dressStyleCard";
 import Review from "./component/review"
 import Footer from "./component/footer"
-
+import Main from "./product/page"
+import Main2 from "./product-2/page"
 
 
 
@@ -19,7 +20,9 @@ export default function Land() {
 <Hero />
 <Brands />
 <NewArrivals />
+<Main />
 <TopSelling />
+<Main2 />
 <DressStyle />
 <DressStyleCard title={""} url={""} />
 <Review />

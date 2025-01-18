@@ -41,7 +41,7 @@ export default function TopSelling() {
   
 
   return (
-    <section className="py-10 bg-white">
+    <section className="py-10 mt-0 bg-white">
     {/* Header */}
     <div className="text-center mb-8 relative">
       <h2 className="text-3xl font-extrabold text-black">TOP SELLING</h2>

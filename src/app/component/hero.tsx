@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
+import ProductsPage from "../product/page";
 
 export default function Hero() {
     return (
@@ -85,6 +86,7 @@ export default function Hero() {
           </div>
         </div>
       </div>
+    
     </section>
     
     );

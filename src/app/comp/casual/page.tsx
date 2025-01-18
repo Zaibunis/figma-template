@@ -20,8 +20,11 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Input } from "@/components/ui/input";
+
 import { useState } from "react"
 import { main, section } from "framer-motion/client";
+import Main4 from "@/app/product-4/page";
+
 interface Product {
   id: number;
   img: string;
@@ -545,49 +548,8 @@ export default function Casual() {
         </span>
       </div>
     </div>
-   {/* Product Grid */}
-   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4 md:px-8 mb-[20px]">
-        {products.map((product) => (
-          <div key={product.id} className="text-center relative group">
-            <Image
-              src={product.img}
-              alt={product.title}
-              width={200}
-              height={200}
-              className="mx-auto rounded-lg shadow"
-            />
-            <p className="mt-4 font-bold text-lg text-black">{product.title}</p>
-            <div className="text-yellow-400 text-sm my-1">
-              {"★".repeat(Math.floor(product.rating)) + "☆".repeat(5 - Math.floor(product.rating))}{" "}
-              <span className="text-black text-sm">{product.rating}/</span>
-              <span className="text-gray-500">5</span>
-            </div>
 
-            {product.discount ? (
-              <div className="flex justify-center gap-2 text-gray-500">
-                <span className="font-bold text-black">{product.price}</span>
-                <span className="line-through">{product.originalPrice}</span>
-                <span className="text-red-500 bg-red-200 text-sm w-[58px] h-[28px] rounded-lg flex items-center justify-center">
-                  {product.discount}
-                </span>
-              </div>
-            ) : (
-              <p className="font-bold text-black">{product.price}</p>
-            )}
-
-            {/* Hover Overlay */}
-            <div className="absolute inset-0 bg-black bg-opacity-80 flex flex-col justify-center items-center text-white p-4 opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out">
-              <h3 className="text-lg font-bold mb-2 text-center">{product.title}</h3>
-              <p className="text-sm mb-4 text-center">{product.description}</p>
-              <Link href={`/comp/casual/${product.id}`}>
-                <button className="mt-4 px-6 py-2 bg-yellow-500 text-black rounded-lg font-semibold transition duration-300 ease-in-out hover:bg-yellow-400">
-                  View Details
-                </button>
-              </Link>
-            </div>
-          </div>
-        ))}
-      </div>
+<Main4/>
 
     
 
