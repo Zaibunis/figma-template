@@ -372,7 +372,7 @@ export default function Page() {
         <h3 className="text-lg font-semibold mb-6 sm:text-base md:text-lg">Order Summary</h3>
         <div className="space-y-4">
           <div className="flex justify-between sm:flex-col sm:space-y-2 md:flex-row">
-            <p className="text-gray-600">Subtotal</p>
+            <p className="text-gray-600">SubTotal</p>
             <p className="font-bold">${subtotal}</p>
           </div>
           <div className="flex justify-between sm:flex-col sm:space-y-2 md:flex-row">
