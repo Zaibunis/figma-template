@@ -33,7 +33,7 @@ import { Input } from "@/components/ui/input";
 
 import { main, section } from "framer-motion/client";
 
-import SecThree from "@/app/product/page";
+import SecThree from "@/app/productOne/page";
 
 interface Product {
   id: number;

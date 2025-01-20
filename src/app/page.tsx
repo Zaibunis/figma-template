@@ -7,7 +7,7 @@ import DressStyle from "./component/dressStyle";
 import DressStyleCard from "./component/dressStyleCard";
 import Review from "./component/review"
 import Footer from "./component/footer"
-import Main from "./product/page"
+import Main from "./productOne/page"
 import Main2 from "./productTwo/page"
 
 

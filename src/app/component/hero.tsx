@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
-import ProductsPage from "../product/page";
+import ProductsPage from "../productOne/page";
 
 export default function Hero() {
     return (

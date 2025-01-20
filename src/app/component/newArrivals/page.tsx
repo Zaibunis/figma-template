@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import Product from "../../product/page"
+import Product from "../../productOne/page"
 export default function NewArrivals() {
 
   const products = [
