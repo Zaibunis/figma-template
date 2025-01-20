@@ -69,7 +69,7 @@ const SecThree1 = () => {
   <p className="text-white text-sm text-center mb-4 line-clamp-2">
     {product.description}
   </p>
-  <Link href={`/product-4/${product._id}`}>
+  <Link href={`/productFour/${product._id}`}>
     <button className="bg-[#B88E2F] text-black px-6 py-2 font-semibold hover:bg-[#A67C2A] transition-colors duration-300">
       View Detail
     </button>

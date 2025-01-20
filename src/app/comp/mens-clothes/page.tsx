@@ -24,10 +24,10 @@ import {
   import { Input } from "@/components/ui/input";
   import { useState } from "react"
 
-import Main3 from "@/app/product-3/page"
+import Main3 from "@/app/productThree/page"
 import SecThree from "@/app/product/page"
-import SecThree1 from "@/app/product-4/page"
-import SecThree2 from "@/app/product-2/page"
+import SecThree1 from "@/app/productFour/page"
+import SecThree2 from "@/app/productTwo/page"
 
   interface Product {
     id: number;
