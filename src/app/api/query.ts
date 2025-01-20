@@ -11,4 +11,4 @@ export const allProductsQuery =
   colors,
   sizes
 }`
-    
+

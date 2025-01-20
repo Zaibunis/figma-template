@@ -415,13 +415,16 @@ export default function Page() {
             </button>
 
             {/* Go to Checkout Button with image on right side */}
+
+            <Link href="/comp/checkout">
             <button
-              onClick={handleCheckout}
               className="w-full sm:w-full md:w-[300px] lg:w-[400px] h-[50px] bg-black text-white py-2 rounded-full mt-2 flex justify-center items-center space-x-3"
             >
               <span className="mr-2 text-base sm:text-sm">Go to Checkout</span>
               <Image src={"/arrow-down-bold 1.png"} width={24} height={24} alt="Arrow Icon" />
+          
             </button>
+            </Link>
           </div>
         </div>
       </div>

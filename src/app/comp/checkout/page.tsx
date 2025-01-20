@@ -1,8 +1,15 @@
-'use client'
+'use client';
 
-import Image from "next/image"
-import Link from "next/link"
-import { useState } from "react"
+import React, { useState, useEffect } from 'react';import Link from "next/link"
+import Image from 'next/image';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -13,17 +20,18 @@ import {
   NavigationMenuTrigger,
  
 } from "@/components/ui/navigation-menu"
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import { Input } from "@/components/ui/input";
 
-export default function Authentication() {
+type CartItem = {
+  _id: string;
+  name: string;
+  description: string;
+  price: number;
+  imageUrl: string;
+  quantity: number;
+};
+
+const CheckoutPage: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isShopOpen, setIsShopOpen] = useState(false);
 
@@ -36,8 +44,65 @@ export default function Authentication() {
   const toggleShop = () => {
     setIsShopOpen(!isShopOpen);
   };
+
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    address: '',
+    city: '',
+    state: '',
+    zip: '',
+    country: '',
+  });
+  const [paymentMethod, setPaymentMethod] = useState<string>('credit-card');
+  const [showSuccessPopup, setShowSuccessPopup] = useState<boolean>(false);
+  const [showErrorPopup, setShowErrorPopup] = useState<boolean>(false);
+
+  useEffect(() => {
+    const storedCart = localStorage.getItem('cart');
+    if (storedCart) {
+      setCart(JSON.parse(storedCart));
+    }
+    setLoading(false);
+  }, []);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handlePaymentMethodChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPaymentMethod(e.target.value);
+  };
+
+  const handleCheckout = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Simulate a checkout process
+    if (cart.length === 0) {
+      setShowErrorPopup(true);
+      return;
+    }
+
+    // Simulate successful checkout
+    setShowSuccessPopup(true);
+    localStorage.removeItem('cart');
+    setCart([]);
+  };
+
+  const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+
+  if (loading) {
+    return <p className="text-center text-gray-600">Loading...</p>;
+  }
+
   return (
-    <main>
+    <div>
         {/* Sticky Announcement Section */}
 <header>
   <div className="w-full h-[38px] flex items-center justify-between bg-[#000000] text-[#FFFFFF] font-integral px-[20px] sm:px-[55px] sticky top-0 z-10">
@@ -206,101 +271,239 @@ export default function Authentication() {
           </ul>
         </div>
       )}
-       {/* Breadcrumb Section */}
-            <Breadcrumb className="mt-5 ml-[95px]">
-                <BreadcrumbList>
-                  <BreadcrumbItem>
-                    <BreadcrumbLink href="/">Home</BreadcrumbLink>
-                  </BreadcrumbItem>
-                  <BreadcrumbSeparator />
-                  <BreadcrumbItem>
-                    <BreadcrumbPage>Sign in</BreadcrumbPage>
-                  </BreadcrumbItem>
-                </BreadcrumbList>
-              </Breadcrumb>
-
-              <main className="flex min-h-screen items-center justify-center  p-4">
-  <div className="w-full max-w-md rounded-lg bg-gray-50 p-6 shadow-lg sm:p-8">
-    <h2 className="mb-6 text-2xl font-bold text-gray-900 sm:text-3xl">Sign In</h2>
-    <form className="space-y-6">
-      {/* Username Field */}
-      <div>
-        <label
-          htmlFor="username"
-          className="block text-sm font-medium text-gray-700 sm:text-base"
-        >
-          Username
-        </label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          required
-          className="mt-1 w-full rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-black focus:outline-none focus:ring-black sm:text-sm"
-          placeholder="Enter your username"
-        />
+      {/* Breadcrumb Section */}
+      <Breadcrumb className="mt-5 ml-[95px]">
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">Home</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Checkout</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+         {/* Progress Indicator */}
+<div className="max-w-4xl mt-5 mx-auto mb-8 px-4 sm:px-6">
+  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-4 sm:space-y-0">
+    <div className="flex items-center space-x-2">
+      <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center">
+        <span className="text-white">1</span>
       </div>
-
-      {/* Email Field */}
-      <div>
-        <label
-          htmlFor="email"
-          className="block text-sm font-medium text-gray-700 sm:text-base"
-        >
-          Email
-        </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          required
-          className="mt-1 w-full rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-black focus:outline-none focus:ring-black sm:text-sm"
-          placeholder="Enter your email"
-        />
+      <span className="text-sm">Shipping</span>
+    </div>
+    <div className="flex-1 h-1 bg-gray-300 mx-2 hidden sm:block"></div>
+    <div className="flex items-center space-x-2">
+      <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
+        <span className="text-gray-600">2</span>
       </div>
-
-      {/* Password Field */}
-      <div>
-        <label
-          htmlFor="password"
-          className="block text-sm font-medium text-gray-700 sm:text-base"
-        >
-          Password
-        </label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          required
-          className="mt-1 w-full rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-black focus:outline-none focus:ring-black sm:text-sm"
-          placeholder="Enter your password"
-        />
-      </div>
-
-      {/* Sign In Button */}
-      <button
-        type="submit"
-        className="w-full rounded-md bg-black px-4 py-2 text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 sm:text-base"
-      >
-        Sign In
-      </button>
-    </form>
-
-    {/* Sign Up Link */}
-    <div className="mt-4 text-center">
-      <p className="text-sm text-gray-600 sm:text-base">
-      Don&apos;t have an account?{' '}
-        <a
-          href="/signup"
-          className="font-medium text-black hover:underline"
-        >
-          Sign Up
-        </a>
-      </p>
+      <span className="text-sm text-gray-600">Payment</span>
     </div>
   </div>
-</main>
-{/* Newsletter Signup */}
+</div>
+
+<h1 className="text-3xl font-bold text-center mb-8 px-4">Checkout</h1>
+<div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-4 sm:px-6">
+  {/* Cart Summary */}
+  <div className="bg-gray-50 mb-8 p-6 rounded-lg shadow-md">
+    <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
+    {cart.length === 0 ? (
+      <p className="text-gray-600">Your cart is empty.</p>
+    ) : (
+      <>
+        {cart.map((item) => (
+          <div
+            key={item._id}
+            className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-4"
+          >
+            <Image
+              src={item.imageUrl}
+              width={16}
+              height={16}
+              alt={item.name}
+              className="w-full sm:w-16 sm:h-16 object-cover rounded-lg"
+            />
+            <div className="flex-1">
+              <h4 className="text-lg font-medium text-gray-900">{item.name}</h4>
+              <p className="text-sm text-gray-600">Quantity: {item.quantity}</p>
+            </div>
+            <span className="text-gray-900 font-bold">
+              ${(item.price * item.quantity).toFixed(2)}
+            </span>
+          </div>
+        ))}
+        <div className="border-t border-gray-200 pt-4">
+          <div className="flex justify-between items-center">
+            <span className="text-lg font-semibold">Total</span>
+            <span className="text-xl font-bold">${totalPrice.toFixed(2)}</span>
+          </div>
+        </div>
+      </>
+    )}
+  </div>
+
+  {/* Checkout Form */}
+  <form
+    onSubmit={handleCheckout}
+    className="bg-gray-50 p-6 rounded-lg shadow-md"
+  >
+    <h2 className="text-xl font-semibold mb-4">Shipping Information</h2>
+    <div className="space-y-4">
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Full Name</label>
+        <input
+          type="text"
+          name="name"
+          value={formData.name}
+          onChange={handleInputChange}
+          className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black text-gray-900"
+          required
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Email</label>
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleInputChange}
+          className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black text-gray-900"
+          required
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Address</label>
+        <input
+          type="text"
+          name="address"
+          value={formData.address}
+          onChange={handleInputChange}
+          className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black text-gray-900"
+          required
+        />
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700">City</label>
+          <input
+            type="text"
+            name="city"
+            value={formData.city}
+            onChange={handleInputChange}
+            className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black text-gray-900"
+            required
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">State</label>
+          <input
+            type="text"
+            name="state"
+            value={formData.state}
+            onChange={handleInputChange}
+            className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black text-gray-900"
+            required
+          />
+        </div>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700">ZIP Code</label>
+          <input
+            type="text"
+            name="zip"
+            value={formData.zip}
+            onChange={handleInputChange}
+            className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black text-gray-900"
+            required
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Country</label>
+          <input
+            type="text"
+            name="country"
+            value={formData.country}
+            onChange={handleInputChange}
+            className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black text-gray-900"
+            required
+          />
+        </div>
+      </div>
+    </div>
+
+    {/* Payment Method Selection */}
+    <div className="mt-6">
+      <h2 className="text-xl font-semibold mb-4">Payment Method</h2>
+      <div className="space-y-2">
+        <label className="flex items-center space-x-2">
+          <input
+            type="radio"
+            name="payment"
+            value="credit-card"
+            checked={paymentMethod === 'credit-card'}
+            onChange={handlePaymentMethodChange}
+            className="form-radio h-5 w-5 text-black"
+          />
+          <span>Credit Card</span>
+        </label>
+        <label className="flex items-center space-x-2">
+          <input
+            type="radio"
+            name="payment"
+            value="paypal"
+            checked={paymentMethod === 'paypal'}
+            onChange={handlePaymentMethodChange}
+            className="form-radio h-5 w-5 text-black"
+          />
+          <span>PayPal</span>
+        </label>
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      className="w-full mt-6 bg-black text-white py-3 rounded-lg hover:bg-gray-900 transition"
+    >
+      Place Order
+    </button>
+  </form>
+</div>
+
+{/* Success Popup */}
+{showSuccessPopup && (
+  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center px-4">
+    <div className="bg-white p-6 rounded-lg shadow-lg text-center animate-fade-in max-w-sm w-full">
+      <h2 className="text-2xl font-bold mb-4">Order Placed Successfully!</h2>
+      <p className="text-gray-600 mb-4">Thank you for your purchase.</p>
+      <Link
+        href="/"
+        className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-900 transition w-full block text-center"
+      >
+        Continue Shopping
+      </Link>
+    </div>
+  </div>
+)}
+
+{/* Error Popup */}
+{showErrorPopup && (
+  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center px-4">
+    <div className="bg-white p-6 rounded-lg shadow-lg text-center animate-fade-in max-w-sm w-full">
+      <h2 className="text-2xl font-bold mb-4">Checkout Failed</h2>
+      <p className="text-gray-600 mb-4">Your cart is empty. Add items to proceed.</p>
+      <button
+        onClick={() => setShowErrorPopup(false)}
+        className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-900 transition w-full"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+)}
+
+
+       {/* Newsletter Signup */}
        <div className="w-full bg-black rounded-lg py-8 px-6 md:px-12 flex flex-col md:flex-row justify-between items-center">
           {/* Text Section */}
           <div className="text-left text-white mb-4 md:mb-0">
@@ -503,6 +706,8 @@ export default function Authentication() {
 </footer>
 
 
-    </main>
+    </div>
   );
-}
+};
+
+export default CheckoutPage;

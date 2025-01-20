@@ -1,120 +1,120 @@
 
-// // import { client } from "@/sanity/lib/client";
-// // import { urlFor } from "@/sanity/lib/image";
-// // import Image from "next/image";
+// import { client } from "@/sanity/lib/client";
+// import { urlFor } from "@/sanity/lib/image";
+// import Image from "next/image";
 
-// // import { notFound } from "next/navigation";
+// import { notFound } from "next/navigation";
 
-// // // Define a Product interface for type safety
-// // interface Product {
-// //   _id: string;
-// //   name: string;
-// //   description: string;
-// //   price: number;
-// //   discountPercentage?: number;
-// //   priceWithoutDiscount?: number;
-// //   rating: number;
-// //   ratingCount: number;
-// //   tags: string[];
-// //   sizes: string[];
-// //   imageUrl: string;
-// // }
+// // Define a Product interface for type safety
+// interface Product {
+//   _id: string;
+//   name: string;
+//   description: string;
+//   price: number;
+//   discountPercentage?: number;
+//   priceWithoutDiscount?: number;
+//   rating: number;
+//   ratingCount: number;
+//   tags: string[];
+//   sizes: string[];
+//   imageUrl: string;
+// }
 
-// // // Dynamic route page component
-// // export default async function ProductPage({
-// //   params,
-// // }: {
-// //   params: { slug: string };
-// // }) {
-// //   // Fetch product details by slug
-// //   const product: Product | null = await client.fetch(
-// //     `*[_type == "products" && slug.current] {
-// //       _id,
-// //       name,
-// //       description,
-// //       price,
-// //       discountPercentage,
-// //       priceWithoutDiscount,
-// //       rating,
-// //       ratingCount,
-// //       tags,
-// //       sizes,
-// //       "imageUrl": image.asset->url
-// //     }`,
-// //     { slug: params.slug }
-// //   );
+// // Dynamic route page component
+// export default async function ProductPage({
+//   params,
+// }: {
+//   params: { slug: string };
+// }) {
+//   // Fetch product details by slug
+//   const product: Product | null = await client.fetch(
+//     `*[_type == "products" && slug.current] {
+//       _id,
+//       name,
+//       description,
+//       price,
+//       discountPercentage,
+//       priceWithoutDiscount,
+//       rating,
+//       ratingCount,
+//       tags,
+//       sizes,
+//       "imageUrl": image.asset->url
+//     }`,
+//     { slug: params.slug }
+//   );
 
-// //   // If no product found, show a 404 page
-// //   if (!product) {
-// //     notFound();
-// //   }
+//   // If no product found, show a 404 page
+//   if (!product) {
+//     notFound();
+//   }
 
-// //   return (
-// //     <div className="max-w-4xl mx-auto p-6">
+//   return (
+//     <div className="max-w-4xl mx-auto p-6">
         
-// //       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-// //         {/* Product Image */}
-// //         <div className="relative w-full h-96">
-// //           <Image
-// //             src={product.imageUrl ? urlFor(product.imageUrl).url() : "/placeholder.png"}
-// //             alt={product.name}
-// //             width={444}
-// //             height={530}
+//       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+//         {/* Product Image */}
+//         <div className="relative w-full h-96">
+//           <Image
+//             src={product.imageUrl ? urlFor(product.imageUrl).url() : "/placeholder.png"}
+//             alt={product.name}
+//             width={444}
+//             height={530}
           
-// //             className="rounded-lg object-cover"
-// //           />
-// //         </div>
+//             className="rounded-lg object-cover"
+//           />
+//         </div>
 
-// //         {/* Product Details */}
-// //         <div className="space-y-4">
-// //           <h1 className="text-3xl font-bold">{product.name}</h1>
-// //           <div className="flex items-center space-x-2">
-// //             <span className="text-yellow-500">★★★★★</span>
-// //             <span className="text-gray-500">({product.ratingCount} reviews)</span>
-// //           </div>
-// //           <div className="flex items-center space-x-4">
-// //             <p className="text-2xl font-bold">${product.price}</p>
-// //             {product.discountPercentage && (
-// //               <p className="text-sm text-red-600">
-// //                 {product.discountPercentage}% off (Original: ${product.priceWithoutDiscount})
-// //               </p>
-// //             )}
-// //           </div>
-// //           <p className="text-gray-700">{product.description}</p>
-// //           <div className="space-y-2">
-// //             <strong>Available Sizes:</strong>
-// //             <div className="flex space-x-2">
-// //               {product.sizes?.map((size) => (
-// //                 <button
-// //                   key={size}
-// //                   className="px-4 py-2 border rounded-lg hover:bg-gray-100"
-// //                 >
-// //                   {size}
-// //                 </button>
-// //               ))}
-// //             </div>
-// //           </div>
-// //           <button className="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800">
-// //             Add to Cart
-// //           </button>
-// //           </div>
-// //           </div>
+//         {/* Product Details */}
+//         <div className="space-y-4">
+//           <h1 className="text-3xl font-bold">{product.name}</h1>
+//           <div className="flex items-center space-x-2">
+//             <span className="text-yellow-500">★★★★★</span>
+//             <span className="text-gray-500">({product.ratingCount} reviews)</span>
+//           </div>
+//           <div className="flex items-center space-x-4">
+//             <p className="text-2xl font-bold">${product.price}</p>
+//             {product.discountPercentage && (
+//               <p className="text-sm text-red-600">
+//                 {product.discountPercentage}% off (Original: ${product.priceWithoutDiscount})
+//               </p>
+//             )}
+//           </div>
+//           <p className="text-gray-700">{product.description}</p>
+//           <div className="space-y-2">
+//             <strong>Available Sizes:</strong>
+//             <div className="flex space-x-2">
+//               {product.sizes?.map((size) => (
+//                 <button
+//                   key={size}
+//                   className="px-4 py-2 border rounded-lg hover:bg-gray-100"
+//                 >
+//                   {size}
+//                 </button>
+//               ))}
+//             </div>
+//           </div>
+//           <button className="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800">
+//             Add to Cart
+//           </button>
+//           </div>
+//           </div>
           
-// //  </div>
-// //   );
-// // }
+//  </div>
+//   );
+// }
 
 
-// // // Generate static parameters for dynamic routes
-// // export async function generateStaticParams() {
-// //   const slugs: { slug: string }[] = await client.fetch(
-// //     `*[_type == "product"]{ "slug": slug.current }`
-// //   );
-// //   return slugs.map((slug) => ({
-// //     params: { slug: slug.slug },
-// //   }));
+// // Generate static parameters for dynamic routes
+// export async function generateStaticParams() {
+//   const slugs: { slug: string }[] = await client.fetch(
+//     `*[_type == "product"]{ "slug": slug.current }`
+//   );
+//   return slugs.map((slug) => ({
+//     params: { slug: slug.slug },
+//   }));
   
-// // }
+// }
 
 "use client";
 
@@ -134,7 +134,7 @@ import {
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
-  BreadcrumbSeparator
+  BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 import { Input } from "@/components/ui/input";
 import { notFound } from "next/navigation";
@@ -143,13 +143,13 @@ import { GoPlus } from "react-icons/go";
 import { LuMinus } from "react-icons/lu";
 import Image from "next/image";
 import { IoIosStar, IoIosStarHalf, IoIosStarOutline } from "react-icons/io";
+
 import { client } from "@/sanity/lib/client"; // Sanity Client import
 import Link from "next/link";
 
 export default function ProductDetailPage({ params }: { params: { id: string } }) {
 
-
-  const [cartItems, setCartItems] = useState<any[]>([]);
+   const [cartItems, setCartItems] = useState<any[]>([]);
 
   // Fetch cart items from localStorage on page load
   useEffect(() => {
@@ -453,83 +453,81 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
     </BreadcrumbItem>
     <BreadcrumbSeparator />
     <BreadcrumbItem>
-      <BreadcrumbPage>New Arrivals</BreadcrumbPage>
+      <BreadcrumbPage>Top Selling</BreadcrumbPage>
     </BreadcrumbItem>
   </BreadcrumbList>
 </Breadcrumb>
   
-<div className="max-w-[1280px] min-h-[80vh] p-3 m-auto">
-  <div className="w-full flex md:flex-row flex-col md:py-12">
-        {/* Left Section */}
-<div className="md:w-3/5 w-full">
-  <div className="p-6 bg-[#F9F1E7] h-full flex">
-    <Image
-      src={product.imageUrl}
-      alt={product.title}
-      width={600}
-      height={600}
-      className="w-full h-full object-cover"
-    />
-  </div>
-</div>
-
-
-
-    {/* Right Section */}
-    <div className="md:w-2/5 w-full md:pl-8 pl-0 pt-10">
-      {/* Product Title */}
-      <h1 className="text-3xl font-bold mb-3">{product.title || "Classic Black Long Sleeve Button-Down Shirt"}</h1>
-
-      {/* Reviews */}
-      <div className="flex items-center gap-2 mb-4">
-        <div className="flex items-center text-yellow-500">
-          {[1, 2, 3, 4].map((star) => (
-            <IoIosStar key={star} className="w-5 h-5" />
-          ))}
-          <IoIosStarHalf className="w-5 h-5" />
-        </div>
-        <span className="text-sm text-gray-500">(150 reviews)</span>
-      </div>
-
-      {/* Price Section */}
-      <div className="flex items-center gap-2 mb-4">
-        <span className="text-2xl font-bold text-black">${product.price || 240}</span>
-        <span className="text-xl line-through text-gray-500">${product.cutPrice || 300}</span>
-        <span className="bg-red-100 text-red-600 text-sm px-2 py-1 rounded">-20%</span>
-      </div>
-
-      {/* Description */}
-      <p className="text-gray-700 leading-relaxed mb-6">
-        {product.description ||
-          "Stylish and durable skinny-fit denim."}
-      </p>
-
-      {/* Colors */}
-      <div className="mb-4">
-        <span className="text-sm font-medium mb-5 text-gray-600 text-center md:text-left">Select Colors</span>
-        <div className="flex gap-3">
-          <button className="w-8 h-8 rounded-full bg-[#4B5320] focus:ring-2 focus:ring-offset-1 focus:ring-black"></button>
-          <button className="w-8 h-8 rounded-full bg-[#013220] focus:ring-2 focus:ring-offset-1 focus:ring-black"></button>
-          <button className="w-8 h-8 rounded-full bg-[#000033] focus:ring-2 focus:ring-offset-1 focus:ring-black"></button>
-        </div>
-      </div>
-
-    {/* Sizes */}
-    <div className="mb-4">
-        <span className="text-sm font-medium mb-5 text-gray-600 text-center md:text-left">Choose Size</span>
-        <div className="flex gap-3">
-          {["Small", "Medium", "Large", "X-Large"].map((size) => (
-            <button
-              key={size}
-              className="rounded-full text-sm w-[104px] h-[46px] flex items-center justify-center mb-5 cursor-pointer bg-gray-100 text-gray-500 hover:bg-black hover:text-white focus:bg-black focus:text-white"
-            >
-              {size}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Quantity and Add to Cart */}
+     <div className="max-w-[1280px] min-h-[80vh] p-3 m-auto">
+       <div className="w-full flex md:flex-row flex-col md:py-12">
+         {/* Left Section */}
+         <div className="md:w-3/5 w-full">
+           <div className="p-6 bg-[#F9F1E7]">
+             <Image
+               src={product.imageUrl}
+               alt={product.title}
+               width={600}
+               height={600}
+               className="w-full h-full object-cover"
+             />
+           </div>
+         </div>
+     
+         {/* Right Section */}
+         <div className="md:w-2/5 w-full md:pl-8 pl-0 pt-10">
+           {/* Product Title */}
+           <h1 className="text-3xl font-bold mb-3">{product.title || "Classic Black Long Sleeve Button-Down Shirt"}</h1>
+     
+           {/* Reviews */}
+           <div className="flex items-center gap-2 mb-4">
+             <div className="flex items-center text-yellow-500">
+               {[1, 2, 3, 4].map((star) => (
+                 <IoIosStar key={star} className="w-5 h-5" />
+               ))}
+               <IoIosStarHalf className="w-5 h-5" />
+             </div>
+             <span className="text-sm text-gray-500">(150 reviews)</span>
+           </div>
+     
+           {/* Price Section */}
+           <div className="flex items-center gap-2 mb-4">
+             <span className="text-2xl font-bold text-black">${product.price || 240}</span>
+             <span className="text-xl line-through text-gray-500">${product.cutPrice || 300}</span>
+             <span className="bg-red-100 text-red-600 text-sm px-2 py-1 rounded">-20%</span>
+           </div>
+     
+           {/* Description */}
+           <p className="text-gray-700 leading-relaxed mb-6">
+             {product.description ||
+               "Stylish and durable skinny-fit denim."}
+           </p>
+     
+           {/* Colors */}
+           <div className="mb-4">
+             <span className="text-sm font-medium mb-5 text-gray-600 text-center md:text-left">Select Colors</span>
+             <div className="flex gap-3">
+               <button className="w-8 h-8 rounded-full bg-[#4B5320] focus:ring-2 focus:ring-offset-1 focus:ring-black"></button>
+               <button className="w-8 h-8 rounded-full bg-[#013220] focus:ring-2 focus:ring-offset-1 focus:ring-black"></button>
+               <button className="w-8 h-8 rounded-full bg-[#000033] focus:ring-2 focus:ring-offset-1 focus:ring-black"></button>
+             </div>
+           </div>
+     
+         {/* Sizes */}
+         <div className="mb-4">
+             <span className="text-sm font-medium mb-5 text-gray-600 text-center md:text-left">Choose Size</span>
+             <div className="flex gap-3">
+               {["Small", "Medium", "Large", "X-Large"].map((size) => (
+                 <button
+                   key={size}
+                   className="rounded-full text-sm w-[104px] h-[46px] flex items-center justify-center mb-5 cursor-pointer bg-gray-100 text-gray-500 hover:bg-black hover:text-white focus:bg-black focus:text-white"
+                 >
+                   {size}
+                 </button>
+               ))}
+             </div>
+           </div>
+     
+        {/* Quantity and Add to Cart */}
       <div className="flex items-center gap-4">
         {/* Quantity Selector */}
         <div className="flex items-center justify-between border bg-gray-100 px-4 py-2 rounded-full w-[170px] h-[52px]">
@@ -557,12 +555,11 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
         >
           Add to Cart
         </button>
-      </div>
-    </div>
-    </div>
-    </div>
-    
-
+           </div>
+         </div>
+       </div>
+     </div>
+     
                 {/* Newsletter Signup */}
                        <div className="w-full bg-black rounded-lg py-8 px-6 md:px-12 flex flex-col md:flex-row justify-between items-center">
                         {/* Text Section */}

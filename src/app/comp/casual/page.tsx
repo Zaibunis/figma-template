@@ -19,11 +19,21 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+
+
+
+import { IoShareSocialOutline } from "react-icons/io5";
+import { VscArrowSwap } from "react-icons/vsc";
+import { IoHeartOutline } from "react-icons/io5";
+import { useEffect, useState } from "react";
+import { client } from "@/sanity/lib/client";
+import { FaStar } from "react-icons/fa";
 import { Input } from "@/components/ui/input";
 
-import { useState } from "react"
+
 import { main, section } from "framer-motion/client";
-import Main4 from "@/app/product-4/page";
+
+import SecThree from "@/app/product/page";
 
 interface Product {
   id: number;
@@ -34,6 +44,7 @@ interface Product {
   originalPrice?: string;
   discount?: string;
   description: string;
+  
 }
 
 const Filters = () => {
@@ -234,90 +245,120 @@ const Filters = () => {
 }  
 
 export default function Casual() {
-
-  const products: Product[] = [
+   const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
   
-    {
-      id: 1,
-      img: "/Frame 33 (7).png",
-      title: "Gradient Graphic T-shirt",
-      rating: 3.5,
-      price: "$145",
-      description: "Stylish gradient t-shirt for casual wear.",
-    },
-    {
-      id: 2,
-      img: "/Frame 34 (2).png",
-      title: "Polo with Tipping Details",
-      rating: 4.5,
-      price: "$180",
-      description: "Premium polo shirt with elegant tipping details.",
-    },
-    {
-      id: 3,
-      img: "/Frame 38 (2).png",
-      title: "Black Striped T-shirt",
-      rating: 5.0,
-      price: "$120",
-      originalPrice: "$150",
-      discount: "-30%",
-      description: "Comfortable black striped t-shirt.",
-    },
-    {
-      id: 4,
-      img: "/Frame 33 (5).png",
-      title: "Skinny Fit Jeans",
-      rating: 3.5,
-      price: "$240",
-      originalPrice: "$260",
-      discount: "-20%",
-      description: "Stylish and durable skinny-fit denim.",
-    },
-    {
-      id: 5,
-      img: "/Frame 34.png",
-      title: "Checkered Shirt",
-      rating: 4.4,
-      price: "$180",
-      description: "Classic checkered shirt perfect for casual wear.",
-    },
-    {
-      id: 6,
-      img: "/Frame 38.png",
-      title: "Sleeve Striped T-shirt",
-      rating: 3.5,
-      price: "$130",
-      originalPrice: "$160",
-      discount: "-30%",
-      description: "Comfortable striped t-shirt with sleek design.",
-    },
-    {
-      id: 7,
-      img: "/Frame 32 (2).png",
-      title: "Vertical Striped Shirt",
-      rating: 5.0,
-      price: "$212",
-      originalPrice: "$232",
-      discount: "-20%",
-      description: "Vertical striped shirt for a bold look.",
-    },
-    {
-      id: 8,
-      img: "/Frame 33 (6).png",
-      title: "Courage Graphic T-shirt",
-      rating: 4.0,
-      price: "$145",
-      description: "Trendy graphic t-shirt for everyday wear.",
-    },
-    {
-      id: 9,
-      img: "/Frame 34 (1).png",
-      title: "Loose Fit Bermuda Shorts",
-      rating: 3.0,
-      price: "$80",
-      description: "Casual bermuda shorts with a loose fit.",
-    },
-  ];
+    useEffect(() => {
+      const fetchProducts = async () => {
+        try {
+          setLoading(true);
+          const data = await client.fetch(
+            `*[_type=="products"][0..8]{
+              _id,
+              name,
+              description,
+              price,
+              "imageUrl" : image.asset->url,
+              category,
+              discountPercent,
+              "isNew": new,
+              colors,
+              sizes,
+              rating
+            }`
+          );
+          setProducts(data);
+        } catch (error) {
+          console.error("Error fetching products:", error);
+        } finally {
+          setLoading(false);
+        }
+      };      fetchProducts();
+    }, []);
+
+  // const products: Product[] = [
+  
+  //   {
+  //     id: 1,
+  //     img: "/Frame 33 (7).png",
+  //     title: "Gradient Graphic T-shirt",
+  //     rating: 3.5,
+  //     price: "$145",
+  //     description: "Stylish gradient t-shirt for casual wear.",
+  //   },
+  //   {
+  //     id: 2,
+  //     img: "/Frame 34 (2).png",
+  //     title: "Polo with Tipping Details",
+  //     rating: 4.5,
+  //     price: "$180",
+  //     description: "Premium polo shirt with elegant tipping details.",
+  //   },
+  //   {
+  //     id: 3,
+  //     img: "/Frame 38 (2).png",
+  //     title: "Black Striped T-shirt",
+  //     rating: 5.0,
+  //     price: "$120",
+  //     originalPrice: "$150",
+  //     discount: "-30%",
+  //     description: "Comfortable black striped t-shirt.",
+  //   },
+  //   {
+  //     id: 4,
+  //     img: "/Frame 33 (5).png",
+  //     title: "Skinny Fit Jeans",
+  //     rating: 3.5,
+  //     price: "$240",
+  //     originalPrice: "$260",
+  //     discount: "-20%",
+  //     description: "Stylish and durable skinny-fit denim.",
+  //   },
+  //   {
+  //     id: 5,
+  //     img: "/Frame 34.png",
+  //     title: "Checkered Shirt",
+  //     rating: 4.4,
+  //     price: "$180",
+  //     description: "Classic checkered shirt perfect for casual wear.",
+  //   },
+  //   {
+  //     id: 6,
+  //     img: "/Frame 38.png",
+  //     title: "Sleeve Striped T-shirt",
+  //     rating: 3.5,
+  //     price: "$130",
+  //     originalPrice: "$160",
+  //     discount: "-30%",
+  //     description: "Comfortable striped t-shirt with sleek design.",
+  //   },
+  //   {
+  //     id: 7,
+  //     img: "/Frame 32 (2).png",
+  //     title: "Vertical Striped Shirt",
+  //     rating: 5.0,
+  //     price: "$212",
+  //     originalPrice: "$232",
+  //     discount: "-20%",
+  //     description: "Vertical striped shirt for a bold look.",
+  //   },
+  //   {
+  //     id: 8,
+  //     img: "/Frame 33 (6).png",
+  //     title: "Courage Graphic T-shirt",
+  //     rating: 4.0,
+  //     price: "$145",
+  //     description: "Trendy graphic t-shirt for everyday wear.",
+  //   },
+  //   {
+  //     id: 9,
+  //     img: "/Frame 34 (1).png",
+  //     title: "Loose Fit Bermuda Shorts",
+  //     rating: 3.0,
+  //     price: "$80",
+  //     description: "Casual bermuda shorts with a loose fit.",
+  //   },
+  // ];
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isShopOpen, setIsShopOpen] = useState(false);
@@ -549,9 +590,62 @@ export default function Casual() {
       </div>
     </div>
 
-<Main4/>
+    <div className="container px-5 py-16 mx-auto">
+  {loading ? (
+    <div className="flex flex-col gap-4 items-center justify-center h-[80vh]">
+      <p className="text-2xl font-bold tracking-wider text-blue-600">Loading Products...</p>
+      <div className="w-32 h-32 rounded-full border-t border-blue-600 animate-spin"></div>
+    </div>
+  ) : (
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      {products.map((product: any) => (
+        <div key={product._id} className="relative group">
+          <a className="block relative h-[301px] w-full overflow-hidden">
+            <Image
+              alt={product.name}
+              className="object-cover object-center w-full h-full block"
+              src={product.imageUrl}
+              width={285}
+              height={301}
+            />
+          </a>
+          <div className="absolute inset-0 bg-black bg-opacity-80 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4">
+            <h2 className="text-white text-lg font-bold mb-2">{product.name}</h2>
+            <p className="text-white text-sm text-center mb-4 line-clamp-2">
+              {product.description}
+            </p>
+            <Link href={`/product-4/${product._id}`}>
+              <button className="bg-[#B88E2F] text-black px-6 py-2 font-semibold hover:bg-[#A67C2A] transition-colors duration-300">
+                View Detail
+              </button>
+            </Link>
+          </div>
+          <div className=" p-4">
+            <h2 className="text-gray-900 title-font text-lg font-bold">{product.name}</h2>
+            <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">
+              {product.category}
+            </h3>
+            <div className="flex items-center mt-1">
+  {[...Array(5)].map((_, i) => (
+    <FaStar
+      key={i}
+      className="h-4 w-4 text-yellow-500"
+    />
+  ))}
+</div>
 
-    
+            <p className="mt-1 flex items-center gap-2 text-black font-semibold">
+              ${product.price}
+              {product.discountPercent && (
+                <span className="text-gray-500 line-through">${(product.price / (1 - product.discountPercent / 100)).toFixed(2)}</span>
+              )}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
+</div>
 
             {/* Border after the product grid */}
   <div className="border-t-2 border-gray-300 mt-8 pt-4"></div>
@@ -559,13 +653,15 @@ export default function Casual() {
 
          </main>
  
- {/* Pagination Section */}
-<div className="flex justify-center items-center w-full mt-8 pt-4 px-4 md:px-8 space-x-4 md:space-x-5 mb-12">
+{/* Pagination Section */}
+<div className="flex justify-center items-center w-full mt-8 pt-4 px-4 sm:px-6 md:px-8 lg:px-12 space-x-4 md:space-x-5 mb-12">
   {/* Previous Button */}
-  <button className="rounded-full border-2 border-gray-100 text-black w-[110px] h-[36px] flex items-center justify-center gap-2">
-    <Image src="/arrow-left.png" width={20} height={20} alt="Previous" />
-    Previous
-  </button>
+  <Link href="/comp/mens-clothes"> {/* Link to Mens Clothes or Home Page */}
+    <button className="rounded-full border-2 border-gray-100 text-black w-[110px] h-[36px] flex items-center justify-center gap-2">
+      <Image src="/arrow-left.png" width={20} height={20} alt="Previous" />
+      Previous
+    </button>
+  </Link>
 
   {/* Pagination Numbers */}
   <div className="flex items-center space-x-3">
@@ -588,14 +684,14 @@ export default function Casual() {
   </div>
 
   {/* Next Button */}
-  <button className="rounded-full border-2 border-gray-100 text-black w-[110px] h-[36px] flex items-center justify-center gap-2">
-    Next
-    <Image src="/arrow-right.png" width={20} height={20} alt="Next" />
-  </button>
+  <Link href="/comp/cart"> {/* Link to Cart page */}
+    <button className="rounded-full border-2 border-gray-100 text-black w-[110px] h-[36px] flex items-center justify-center gap-2">
+      Next
+      <Image src="/arrow-right.png" width={20} height={20} alt="Next" />
+    </button>
+  </Link>
 </div>
 
-
-  
   
  {/* Newsletter Signup Section */}
       <div className="mb-[1px] w-full mr-[50px] bg-black rounded-lg py-8 px-6 md:px-12 flex flex-col md:flex-row justify-between items-center">
