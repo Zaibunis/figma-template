@@ -29,7 +29,7 @@ type CartItem = {
   name: string;
   price: number;
   quantity: number;
-  image: string;
+  images: string;
 };
 export default function Page() {
 
@@ -318,7 +318,7 @@ export default function Page() {
           <div key={item.id} className="flex items-center justify-between border border-gray-300 rounded-lg p-4 sm:p-2 md:p-4">
             <div className="flex items-center space-x-4">
               <Image
-                src={item.image}
+                src={item.images}
                 width={90} 
                 height={90} 
                 alt={item.name}
