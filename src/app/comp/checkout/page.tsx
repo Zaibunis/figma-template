@@ -27,7 +27,7 @@ type CartItem = {
   name: string;
   description: string;
   price: number;
-  imageUrl: string;
+  images: string;
   quantity: number;
 };
 
@@ -317,7 +317,7 @@ const CheckoutPage: React.FC = () => {
             className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-4"
           >
             <Image
-              src={item.imageUrl}
+              src={item.images}
               width={16}
               height={16}
               alt={item.name}
