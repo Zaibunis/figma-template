@@ -290,12 +290,12 @@ export default function Authentication() {
     <div className="mt-4 text-center">
       <p className="text-sm text-gray-600 sm:text-base">
       Don&apos;t have an account?{' '}
-        <a
+        <Link
           href="/signup"
           className="font-medium text-black hover:underline"
         >
           Sign Up
-        </a>
+        </Link>
       </p>
     </div>
   </div>
