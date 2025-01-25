@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import ProductsPage from "../productOne/page";
+import Link from "next/link";
 
 export default function Hero() {
     return (
@@ -16,7 +17,7 @@ export default function Hero() {
             designed to bring out your individuality and cater to your sense of style.
           </p>
           <div className="w-full sm:w-[284px] md:w-[284px] lg:w-[284px] h-[64px] bg-black text-white rounded-full mt-5 shadow-md flex justify-center items-center mb-5 cursor-pointer">
-            <span className="text-lg font-medium mr-2">Shop Now</span>
+           <Link href="/comp/casual"><span className="text-lg font-medium mr-2">Shop Now</span></Link> 
           </div>
           <div className="flex flex-col md:flex-row md:h-full md:max-h-11 lg:max-h-[52px] xl:max-h-[68px] items-center justify-center md:justify-start flex-wrap sm:flex-nowrap md:space-x-3 lg:space-x-6 xl:space-x-8 md:mb-[116px]">
             <div className="flex flex-col text-center md:text-left">

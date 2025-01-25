@@ -50,7 +50,7 @@ export default function Authentication() {
       <div className="flex items-center mt-0 sm:mt-0 space-x-2 sm:space-x-3">
         {/* Sign Up Now with Icon in One Line */}
         <div className="flex items-center ml-3">
-          <span className="mr-3 underline whitespace-nowrap">Sign Up Now</span>
+        <Link href="/component/authentication"> <span className="mr-3 underline whitespace-nowrap">Sign Up Now</span></Link>
           <Image
             src="/Vector (2).png"
             alt="arrow"

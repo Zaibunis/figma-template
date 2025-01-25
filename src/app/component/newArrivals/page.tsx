@@ -98,9 +98,11 @@ export default function NewArrivals() {
       
       {/* View All Button */}
       <div className="text-center mt-10">
+        <Link href="/productFour">
         <button className="px-6 py-2 border w-[218px] h-[52px] border-gray-400 rounded-full text-black font-semibold hover:bg-black hover:text-white transition">
           View All
         </button>
+        </Link>
       </div>
 
       {/* Bottom Border */}
