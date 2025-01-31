@@ -416,7 +416,7 @@ export default function Page() {
 
             {/* Go to Checkout Button with image on right side */}
 
-            <Link href="/comp/checkout">
+            <Link href="/component/checkout">
             <button
               className="w-full sm:w-full md:w-[300px] lg:w-[400px] h-[50px] bg-black text-white py-2 rounded-full mt-2 flex justify-center items-center space-x-3"
             >

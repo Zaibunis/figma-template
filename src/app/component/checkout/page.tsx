@@ -5,6 +5,7 @@ import Link from "next/link"
 import Image from 'next/image';
 
 
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -34,7 +35,18 @@ type CartItem = {
   quantity: number;
 };
 
-const CheckoutPage: React.FC = () => {
+
+import dynamic from "next/dynamic";
+import StripePayment from "../../component/StripePayment/page"
+
+const Page: React.FC = () => {
+
+
+  const DynamicComponentWithNoSSR = dynamic(
+    () => import('../../component/StripePayment/page'),
+    { ssr: false }
+  )
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isShopOpen, setIsShopOpen] = useState(false);
 
@@ -290,6 +302,7 @@ const CheckoutPage: React.FC = () => {
       
 
          {/* Progress Indicator */}
+
 <div className="max-w-4xl mt-5 mx-auto mb-8 px-4 sm:px-6">
   <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-4 sm:space-y-0">
     <div className="flex items-center space-x-2">
@@ -432,59 +445,36 @@ const CheckoutPage: React.FC = () => {
       </div>
     </div>
 
-    {/* Payment Method Selection */}
-    <div className="mt-6">
-      <h2 className="text-xl font-semibold mb-4">Payment Method</h2>
-      <div className="space-y-2">
-        <label className="flex items-center space-x-2">
-          <input
-            type="radio"
-            name="payment"
-            value="credit-card"
-            checked={paymentMethod === 'credit-card'}
-            onChange={handlePaymentMethodChange}
-            className="form-radio h-5 w-5 text-black"
-          />
-          <span>Credit Card</span>
-        </label>
-        <label className="flex items-center space-x-2">
-          <input
-            type="radio"
-            name="payment"
-            value="paypal"
-            checked={paymentMethod === 'paypal'}
-            onChange={handlePaymentMethodChange}
-            className="form-radio h-5 w-5 text-black"
-          />
-          <span>PayPal</span>
-        </label>
-      </div>
-    </div>
+   
+        {/* Payment Method Selection */}
+        <div className="mt-6">
+          <h2 className="text-xl font-semibold mb-4">Payment Method</h2>
+          <div className="space-y-2">
+            {/* Keep only Stripe payment option */}
+            <label className="flex items-center space-x-2">
+              <input
+                type="radio"
+                name="payment"
+                value="credit-card"
+                checked={paymentMethod === 'credit-card'}
+                onChange={handlePaymentMethodChange}
+                className="form-radio h-5 w-5 text-black"
+              />
+              <span>Credit Card (Stripe)</span>
+            </label>
+          </div>
+        </div>
 
-    <button
-      type="submit"
-      className="w-full mt-6 bg-black text-white py-3 rounded-lg hover:bg-gray-900 transition"
-    >
-      Place Order
-    </button>
-  </form>
+        {/* Replace Place Order button with Stripe Payment */}
+        <div className="w-full mt-6">
+          <DynamicComponentWithNoSSR />
+           
+          
+        </div>
+      </form>
 </div>
 
-{/* Success Popup */}
-{showSuccessPopup && (
-  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center px-4">
-    <div className="bg-white p-6 rounded-lg shadow-lg text-center animate-fade-in max-w-sm w-full">
-      <h2 className="text-2xl font-bold mb-4">Order Placed Successfully!</h2>
-      <p className="text-gray-600 mb-4">Thank you for your purchase.</p>
-      <Link
-        href="/"
-        className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-900 transition w-full block text-center"
-      >
-        Continue Shopping
-      </Link>
-    </div>
-  </div>
-)}
+
 
 {/* Error Popup */}
 {showErrorPopup && (
@@ -710,4 +700,4 @@ const CheckoutPage: React.FC = () => {
   );
 };
 
-export default CheckoutPage;
+export default Page;

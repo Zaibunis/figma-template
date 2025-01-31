@@ -30,6 +30,7 @@
     "react-dom": "^18.3.1",
     "react-icons": "^5.4.0",
     "sanity": "^3.68.3",
+    "stripe": "^17.6.0",
     "styled-components": "^6.1.14",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7"

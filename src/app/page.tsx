@@ -11,7 +11,6 @@ import Main from "./productOne/page"
 import Main2 from "./productTwo/page"
 
 
-
 export default function Land() {
   return (
   <div>
