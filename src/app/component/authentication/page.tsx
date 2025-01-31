@@ -24,6 +24,31 @@ import {
 import { Input } from "@/components/ui/input";
 
 export default function Authentication() {
+
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+  
+    const handleSubmit = (e: React.FormEvent) => {
+      e.preventDefault();
+      setLoading(true);
+      setError("");
+  
+      // Simulate authentication (replace with actual API call)
+      setTimeout(() => {
+        if (email === "user@example.com" && password === "password") {
+          alert("Sign in successful!");
+          // Redirect to dashboard or home page
+        } else {
+          setError("Invalid email or password");
+        }
+        setLoading(false);
+      }, 1000);
+    }
+  
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isShopOpen, setIsShopOpen] = useState(false);
 
@@ -219,87 +244,84 @@ export default function Authentication() {
                 </BreadcrumbList>
               </Breadcrumb>
 
-              <main className="flex min-h-screen items-center justify-center  p-4">
-  <div className="w-full max-w-md rounded-lg bg-gray-50 p-6 shadow-lg sm:p-8">
-    <h2 className="mb-6 text-2xl font-bold text-gray-900 sm:text-3xl">Sign In</h2>
-    <form className="space-y-6">
-      {/* Username Field */}
-      <div>
-        <label
-          htmlFor="username"
-          className="block text-sm font-medium text-gray-700 sm:text-base"
-        >
-          Username
-        </label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          required
-          className="mt-1 w-full rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-black focus:outline-none focus:ring-black sm:text-sm"
-          placeholder="Enter your username"
-        />
+              <main className="flex min-h-screen items-center justify-center bg-gray-100 p-4">
+      <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg sm:p-8">
+        <h2 className="mb-6 text-2xl font-bold text-gray-900 sm:text-3xl">
+          Sign In
+        </h2>
+
+        {/* Error Message */}
+        {error && (
+          <div className="mb-4 rounded-md bg-red-100 p-3 text-sm text-red-700">
+            {error}
+          </div>
+        )}
+
+        <form className="space-y-6" onSubmit={handleSubmit}>
+          {/* Email Field */}
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700 sm:text-base"
+            >
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="mt-1 w-full rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-black focus:outline-none focus:ring-black sm:text-sm"
+              placeholder="Enter your email"
+            />
+          </div>
+
+          {/* Password Field */}
+          <div>
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700 sm:text-base"
+            >
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="mt-1 w-full rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-black focus:outline-none focus:ring-black sm:text-sm"
+              placeholder="Enter your password"
+            />
+          </div>
+
+          {/* Sign In Button */}
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full rounded-md bg-black px-4 py-2 text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 sm:text-base"
+          >
+            {loading ? "Signing in..." : "Sign In"}
+          </button>
+        </form>
+
+        {/* Sign Up Link */}
+        <div className="mt-4 text-center">
+          <p className="text-sm text-gray-600 sm:text-base">
+            Don&apos;t have an account?{" "}
+            <Link
+              href="/signup"
+              className="font-medium text-black hover:underline"
+            >
+              Sign Up
+            </Link>
+          </p>
+        </div>
       </div>
-
-      {/* Email Field */}
-      <div>
-        <label
-          htmlFor="email"
-          className="block text-sm font-medium text-gray-700 sm:text-base"
-        >
-          Email
-        </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          required
-          className="mt-1 w-full rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-black focus:outline-none focus:ring-black sm:text-sm"
-          placeholder="Enter your email"
-        />
-      </div>
-
-      {/* Password Field */}
-      <div>
-        <label
-          htmlFor="password"
-          className="block text-sm font-medium text-gray-700 sm:text-base"
-        >
-          Password
-        </label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          required
-          className="mt-1 w-full rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-black focus:outline-none focus:ring-black sm:text-sm"
-          placeholder="Enter your password"
-        />
-      </div>
-
-      {/* Sign In Button */}
-      <button
-        type="submit"
-        className="w-full rounded-md bg-black px-4 py-2 text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 sm:text-base"
-      >
-        Sign In
-      </button>
-    </form>
-
-    {/* Sign Up Link */}
-    <div className="mt-4 text-center">
-      <p className="text-sm text-gray-600 sm:text-base">
-      Don&apos;t have an account?{' '}
-        <Link
-          href="/signup"
-          className="font-medium text-black hover:underline"
-        >
-          Sign Up
-        </Link>
-      </p>
-    </div>
-  </div>
-</main>
+    </main>
 {/* Newsletter Signup */}
        <div className="w-full bg-black rounded-lg py-8 px-6 md:px-12 flex flex-col md:flex-row justify-between items-center">
           {/* Text Section */}

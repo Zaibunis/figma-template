@@ -16,7 +16,11 @@ import {
 } from "@/components/ui/navigation-menu"
 
 
+
 export default function Home() {
+
+  
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isShopOpen, setIsShopOpen] = useState(false);
 
@@ -119,6 +123,7 @@ export default function Home() {
             <div className="relative">
               <Image src="/Frame 3.png" alt="Search Icon" width={477} height={48} />
             </div>
+          
 {/* Cart Icon */}
 <Link href="/comp/cart">
   <Image

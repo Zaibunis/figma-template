@@ -12,7 +12,6 @@ import Main2 from "./productTwo/page"
 
 
 
-
 export default function Land() {
   return (
   <div>
@@ -27,6 +26,7 @@ export default function Land() {
 <DressStyleCard title={""} url={""} />
 <Review />
 <Footer />
+
 
   </div>  
   );

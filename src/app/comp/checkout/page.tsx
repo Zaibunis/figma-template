@@ -1,7 +1,10 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';import Link from "next/link"
+import React, { useState, useEffect } from 'react';
+import Link from "next/link"
 import Image from 'next/image';
+
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -283,6 +286,9 @@ const CheckoutPage: React.FC = () => {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
+
+      
+
          {/* Progress Indicator */}
 <div className="max-w-4xl mt-5 mx-auto mb-8 px-4 sm:px-6">
   <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-4 sm:space-y-0">
@@ -316,13 +322,7 @@ const CheckoutPage: React.FC = () => {
             key={item._id}
             className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-4"
           >
-            <Image
-              src={item.images}
-              width={16}
-              height={16}
-              alt={item.name}
-              className="w-full sm:w-16 sm:h-16 object-cover rounded-lg"
-            />
+            
             <div className="flex-1">
               <h4 className="text-lg font-medium text-gray-900">{item.name}</h4>
               <p className="text-sm text-gray-600">Quantity: {item.quantity}</p>

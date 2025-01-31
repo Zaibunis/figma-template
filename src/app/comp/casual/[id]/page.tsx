@@ -38,6 +38,8 @@ interface Product {
 
 export default function ProductDetail({ params }: any) {
 
+  
+
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
