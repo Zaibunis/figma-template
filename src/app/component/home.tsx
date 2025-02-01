@@ -15,7 +15,14 @@ import {
  
 } from "@/components/ui/navigation-menu"
 
-
+import {
+  ClerkProvider,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton
+} from '@clerk/nextjs'
+import {  DynamicSignInButton, DynamicUserButton } from '../component/DynamicClerkComponents';
 
 export default function Home() {
 
@@ -145,6 +152,16 @@ export default function Home() {
             />
             </Link>
           </div>
+
+     {/* Clerk Authentication */}
+     <div className="flex ml-3 items-center gap-x-6">
+          <SignedOut>
+            <DynamicSignInButton mode="modal" />
+          </SignedOut>
+          <SignedIn>
+            <DynamicUserButton />
+          </SignedIn>
+        </div>
 
            {/* Hamburger Icon for Mobile */}
       <div className="md:hidden flex items-center ml-4">

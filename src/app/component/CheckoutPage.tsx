@@ -81,7 +81,7 @@ const CheckoutPage = ({ amount }: { amount: number }) => {
                 className='w-full bg-black text-white py-2 mt-5' 
                 disabled={!stripe || !elements || !clientSecret || loading}
             >
-                {loading ? 'Processing...' : 'Pay Now'}
+                {loading ? 'Thank You' : 'Pay Now'}
             </button>
             {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
         </form>
