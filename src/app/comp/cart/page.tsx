@@ -317,13 +317,7 @@ export default function Page() {
         {cartItems.map((item) => (
           <div key={item.id} className="flex items-center justify-between border border-gray-300 rounded-lg p-4 sm:p-2 md:p-4">
             <div className="flex items-center space-x-4">
-              <Image
-                src={item.images}
-                width={90} 
-                height={90} 
-                alt={item.name}
-                className="w-20 h-20 rounded sm:w-16 sm:h-16"
-              />
+             
               <div>
                 <p className="text-base font-semibold sm:text-sm">{item.name}</p>
                 <p className="text-sm text-gray-600">Size: Large</p>

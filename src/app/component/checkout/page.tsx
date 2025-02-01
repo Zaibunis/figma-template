@@ -360,7 +360,7 @@ const Page: React.FC = () => {
     onSubmit={handleCheckout}
     className="bg-gray-50 p-6 rounded-lg shadow-md"
   >
-    <h2 className="text-xl font-semibold mb-4">Shipping Information</h2>
+    <h2 className="text-xl font-semibold mb-4">Billing Details</h2>
     <div className="space-y-4">
       <div>
         <label className="block text-sm font-medium text-gray-700">Full Name</label>
@@ -460,7 +460,7 @@ const Page: React.FC = () => {
                 onChange={handlePaymentMethodChange}
                 className="form-radio h-5 w-5 text-black"
               />
-              <span>Credit Card (Stripe)</span>
+              <span>Stripe Method</span>
             </label>
           </div>
         </div>
