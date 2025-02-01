@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Input } from "@/components/ui/input";
 
+
 export default function Authentication() {
 
 
@@ -83,6 +84,7 @@ export default function Authentication() {
             height={20}
             className="ml-10"
           />
+          
         </div>
       </div>
     </div>
