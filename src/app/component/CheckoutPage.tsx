@@ -61,7 +61,7 @@ const CheckoutPage = ({ amount }: { amount: number }) => {
         const { error } = await stripe.confirmPayment({
             elements,
             clientSecret,
-            confirmParams: { return_url: `${URL}/payment-success?amount=${amount}` }, // FIXED: Removed extra space before `/payment-success`
+            confirmParams: { return_url: `${URL}/payment-success?amount=${amount}` }, // FIXED: Removed extra space before /payment-success
         });
 
         if (error) {

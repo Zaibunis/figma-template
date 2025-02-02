@@ -26,7 +26,6 @@ import {  DynamicSignInButton, DynamicUserButton } from '../component/DynamicCle
 
 export default function Home() {
 
-  
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isShopOpen, setIsShopOpen] = useState(false);
@@ -141,16 +140,7 @@ export default function Home() {
     className="cursor-pointer"
   />
 </Link>
-            {/* Profile Icon */}
-            <Link href="/component/authentication">
-            <Image
-              src="/Frame (4).png"
-              alt="Profile"
-              width={24}
-              height={24}
-              className="cursor-pointer"
-            />
-            </Link>
+            
           </div>
 
      {/* Clerk Authentication */}
