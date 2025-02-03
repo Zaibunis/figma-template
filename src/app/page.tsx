@@ -9,6 +9,7 @@ import Review from "./component/review"
 import Footer from "./component/footer"
 import Main from "./productOne/page"
 import Main2 from "./productTwo/page"
+import Chatbot from "./component/Chatbot"
 
 
 export default function Land() {
@@ -17,6 +18,7 @@ export default function Land() {
     <Home />
 <Hero />
 <Brands />
+<Chatbot/>
 <NewArrivals />
 <Main />
 <TopSelling />
