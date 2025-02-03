@@ -225,22 +225,7 @@ export default function AdminDashboard() {
   const [password, setPassword] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [error, setError] = useState('');
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
-
-  useEffect(() => {
-    // Check for saved theme in localStorage on mount
-    const savedTheme = localStorage.getItem('theme') as 'dark' | 'light' | null;
-    if (savedTheme) {
-      setTheme(savedTheme);
-    }
-  }, []);
-
-  useEffect(() => {
-    // Save theme to localStorage when it changes
-    localStorage.setItem('theme', theme);
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-  }, [theme]);
-
+ 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
@@ -263,10 +248,7 @@ export default function AdminDashboard() {
     ]
   };
 
-  const handleThemeToggle = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
-  };
-
+  
   if (!isAuthenticated) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-900 p-4">
@@ -340,12 +322,7 @@ export default function AdminDashboard() {
         <header className="mb-6 flex flex-col md:flex-row justify-between items-center border-b border-gray-700 pb-4">
           <h2 className="text-2xl font-bold capitalize mb-4 md:mb-0">{activeTab}</h2>
           <div className="flex items-center gap-4">
-            <button
-              onClick={handleThemeToggle}
-              className="px-4 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 border border-gray-600"
-            >
-              Toggle Theme
-            </button>
+           
             <button
               onClick={() => setIsAuthenticated(false)}
               className="px-4 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 border border-gray-600"
