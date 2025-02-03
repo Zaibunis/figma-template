@@ -219,11 +219,11 @@ const orders = [
 ];
 
 export default function AdminDashboard() {
-  // Set the default tab to 'dashboard' (removed "analytics")
+  // Set the default tab to 'dashboard'
   const [activeTab, setActiveTab] = useState('dashboard');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [error, setError] = useState('');
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
@@ -269,8 +269,8 @@ export default function AdminDashboard() {
 
   if (!isAuthenticated) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-900">
-        <div className="bg-gray-800 p-8 rounded-lg shadow-xl w-full sm:w-96">
+      <div className="flex items-center justify-center min-h-screen bg-gray-900 p-4">
+        <div className="bg-gray-800 p-8 rounded-lg shadow-xl w-full max-w-sm">
           <h2 className="text-3xl font-bold mb-6 text-center text-white">Admin Login</h2>
           <form onSubmit={handleLogin} className="space-y-6">
             <div>
@@ -307,9 +307,10 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen flex bg-gray-900 text-white">
-      <aside className="w-64 bg-gray-800 p-6 border-r border-gray-700">
-        <h1 className="text-2xl font-bold mb-8">Admin Dashboard</h1>
+    <div className="min-h-screen flex flex-col md:flex-row bg-gray-900 text-white">
+      {/* Sidebar */}
+      <aside className="md:w-64 w-full md:min-h-screen bg-gray-800 p-6 border-r border-gray-700">
+        <h1 className="text-2xl font-bold mb-8 text-center md:text-left">Admin Dashboard</h1>
         <nav>
           <ul className="space-y-2">
             {[
@@ -322,7 +323,9 @@ export default function AdminDashboard() {
               <li key={name}>
                 <button
                   onClick={() => setActiveTab(name)}
-                  className={`w-full text-left p-3 rounded-lg capitalize ${activeTab === name ? 'bg-gray-700' : 'hover:bg-gray-700'}`}
+                  className={`w-full text-left p-3 rounded-lg capitalize ${
+                    activeTab === name ? 'bg-gray-700' : 'hover:bg-gray-700'
+                  }`}
                 >
                   {icon} {name}
                 </button>
@@ -332,25 +335,46 @@ export default function AdminDashboard() {
         </nav>
       </aside>
 
-      <div className="flex-1 p-8">
-        <header className="mb-8 flex justify-between items-center border-b border-gray-700 pb-4">
-          <h2 className="text-2xl font-bold capitalize">{activeTab}</h2>
-          <button
-            onClick={() => setIsAuthenticated(false)}
-            className="px-4 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 border border-gray-600"
-          >
-            Logout
-          </button>
+      {/* Main Content */}
+      <div className="flex-1 p-4 md:p-8">
+        <header className="mb-6 flex flex-col md:flex-row justify-between items-center border-b border-gray-700 pb-4">
+          <h2 className="text-2xl font-bold capitalize mb-4 md:mb-0">{activeTab}</h2>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={handleThemeToggle}
+              className="px-4 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 border border-gray-600"
+            >
+              Toggle Theme
+            </button>
+            <button
+              onClick={() => setIsAuthenticated(false)}
+              className="px-4 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 border border-gray-600"
+            >
+              Logout
+            </button>
+          </div>
         </header>
 
         {activeTab === 'dashboard' && (
           <div className="space-y-6">
             {/* Dashboard Overview */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
-                { title: 'Total Products', value: products.length, icon: <ShoppingBagIcon className="w-6 h-6 inline mr-2" /> },
-                { title: 'Total Orders', value: orders.length, icon: <ClipboardListIcon className="w-6 h-6 inline mr-2" /> },
-                { title: 'Total Revenue', value: `$${orders.reduce((sum, order) => sum + order.totalAmount, 0)}`, icon: <ChartPieIcon className="w-6 h-6 inline mr-2" /> }
+                {
+                  title: 'Total Products',
+                  value: products.length,
+                  icon: <ShoppingBagIcon className="w-6 h-6 inline mr-2" />
+                },
+                {
+                  title: 'Total Orders',
+                  value: orders.length,
+                  icon: <ClipboardListIcon className="w-6 h-6 inline mr-2" />
+                },
+                {
+                  title: 'Total Revenue',
+                  value: `$${orders.reduce((sum, order) => sum + order.totalAmount, 0)}`,
+                  icon: <ChartPieIcon className="w-6 h-6 inline mr-2" />
+                }
               ].map((stat, index) => (
                 <div key={index} className="bg-gray-800 rounded-lg border border-gray-700 p-4 flex items-center">
                   {stat.icon}
@@ -363,212 +387,214 @@ export default function AdminDashboard() {
             </div>
 
             {/* Products List */}
-            <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
+            <div className="bg-gray-800 rounded-lg border border-gray-700 p-6 overflow-x-auto">
               <h3 className="text-xl font-semibold mb-4">Products</h3>
-              <div className="overflow-x-auto">
-                <table className="w-full border-collapse border border-gray-700">
-                  <thead className="bg-gray-700">
-                    <tr>
-                      <th className="p-3 text-left">Image</th>
-                      <th className="p-3 text-left">ID</th>
-                      <th className="p-3 text-left">Name</th>
-                      <th className="p-3 text-left">Price</th>
-                      <th className="p-3 text-left">Discount</th>
-                      <th className="p-3 text-left">Rating</th>
-                      <th className="p-3 text-left">Description</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {products.map((product) => (
-                      <tr key={product.id} className="border-b border-gray-700">
-                        <td className="p-3">
+              <table className="min-w-full border-collapse">
+                <thead className="bg-gray-700">
+                  <tr>
+                    <th className="p-3 text-left">Image</th>
+                    <th className="p-3 text-left">ID</th>
+                    <th className="p-3 text-left">Name</th>
+                    <th className="p-3 text-left">Price</th>
+                    <th className="p-3 text-left">Discount</th>
+                    <th className="p-3 text-left">Rating</th>
+                    <th className="p-3 text-left">Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {products.map((product) => (
+                    <tr key={product.id} className="border-b border-gray-700">
+                      <td className="p-3">
                         <Image
-                  src={product.img}
-                  width={70}
-                  height={70}
-                  alt={product.title}
-                  className=" object-cover rounded-md"
-                />
-                        </td>
-                        <td className="p-3">{product.id}</td>
-                        <td className="p-3 font-semibold">{product.title}</td>
-                        <td className="p-3">{product.price}</td>
-                        <td className="p-3">{product.discount || "N/A"}</td>
-                        <td className="p-3">{product.rating} ⭐</td>
-                        <td className="p-3 text-gray-300">{product.description}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                          src={product.img}
+                          width={70}
+                          height={70}
+                          alt={product.title}
+                          className="object-cover rounded-md"
+                        />
+                      </td>
+                      <td className="p-3">{product.id}</td>
+                      <td className="p-3 font-semibold">{product.title}</td>
+                      <td className="p-3">{product.price}</td>
+                      <td className="p-3">{product.discount || 'N/A'}</td>
+                      <td className="p-3">{product.rating} ⭐</td>
+                      <td className="p-3 text-gray-300">{product.description}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
 
             {/* Orders List */}
-            <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
+            <div className="bg-gray-800 rounded-lg border border-gray-700 p-6 overflow-x-auto">
               <h3 className="text-xl font-semibold mb-4">Order History</h3>
-              <div className="overflow-x-auto">
-                <table className="w-full border-collapse border border-gray-700">
-                  <thead className="bg-gray-700">
-                    <tr>
-                      <th className="p-2 border border-gray-600">Order ID</th>
-                      <th className="p-2 border border-gray-600">Date</th>
-                      <th className="p-2 border border-gray-600">Amount</th>
-                      <th className="p-2 border border-gray-600">Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {orders.map((order) => (
-                      <tr key={order.id} className="text-center">
-                        <td className="p-2 border border-gray-600">{order.id}</td>
-                        <td className="p-2 border border-gray-600">{order.date} {order.time}</td>
-                        <td className="p-2 border border-gray-600">${order.totalAmount}</td>
-                        <td className="p-2 border border-gray-600">
-                          <span className={`px-2 py-1 rounded-full text-xs ${
+              <table className="min-w-full border-collapse">
+                <thead className="bg-gray-700">
+                  <tr>
+                    <th className="p-2 border border-gray-600">Order ID</th>
+                    <th className="p-2 border border-gray-600">Date</th>
+                    <th className="p-2 border border-gray-600">Amount</th>
+                    <th className="p-2 border border-gray-600">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {orders.map((order) => (
+                    <tr key={order.id} className="text-center">
+                      <td className="p-2 border border-gray-600">{order.id}</td>
+                      <td className="p-2 border border-gray-600">
+                        {order.date} {order.time}
+                      </td>
+                      <td className="p-2 border border-gray-600">${order.totalAmount}</td>
+                      <td className="p-2 border border-gray-600">
+                        <span
+                          className={`px-2 py-1 rounded-full text-xs ${
                             order.status === 'Completed'
                               ? 'bg-gray-600'
                               : order.status === 'Shipped'
                               ? 'bg-gray-500'
                               : 'bg-gray-700'
-                          }`}>
-                            {order.status}
-                          </span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                          }`}
+                        >
+                          {order.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'products' && (
+          <div className="bg-gray-800 rounded-lg border border-gray-700 p-6 overflow-x-auto">
+            <h3 className="text-xl font-semibold mb-4">Product Inventory</h3>
+            <table className="min-w-full border-collapse">
+              <thead className="bg-gray-700">
+                <tr>
+                  <th className="p-3 text-left">Image</th>
+                  <th className="p-3 text-left">ID</th>
+                  <th className="p-3 text-left">Name</th>
+                  <th className="p-3 text-left">Price</th>
+                  <th className="p-3 text-left">Discount</th>
+                  <th className="p-3 text-left">Rating</th>
+                  <th className="p-3 text-left">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                {products.map((product) => (
+                  <tr key={product.id} className="border-b border-gray-700">
+                    <td className="p-3">
+                      <Image
+                        src={product.img}
+                        width={70}
+                        height={70}
+                        alt={product.title}
+                        className="object-cover rounded-md"
+                      />
+                    </td>
+                    <td className="p-3">{product.id}</td>
+                    <td className="p-3 font-semibold">{product.title}</td>
+                    <td className="p-3">{product.price}</td>
+                    <td className="p-3">{product.discount || 'N/A'}</td>
+                    <td className="p-3">{product.rating} ⭐</td>
+                    <td className="p-3 text-gray-300">{product.description}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        {activeTab === 'orders' && (
+          <div className="bg-gray-800 rounded-lg border border-gray-700 p-6 overflow-x-auto">
+            <h3 className="text-xl font-semibold mb-4">Order History</h3>
+            <table className="min-w-full">
+              <thead className="bg-gray-700">
+                <tr>
+                  <th className="p-3 text-left">Order ID</th>
+                  <th className="p-3 text-left">Date</th>
+                  <th className="p-3 text-left">Amount</th>
+                  <th className="p-3 text-left">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {orders.map((order) => (
+                  <tr key={order.id} className="border-b border-gray-700">
+                    <td className="p-3">{order.id}</td>
+                    <td className="p-3">
+                      {order.date} {order.time}
+                    </td>
+                    <td className="p-3">${order.totalAmount}</td>
+                    <td className="p-3">
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs ${
+                          order.status === 'Completed'
+                            ? 'bg-gray-600'
+                            : order.status === 'Shipped'
+                            ? 'bg-gray-500'
+                            : 'bg-gray-700'
+                        }`}
+                      >
+                        {order.status}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        {activeTab === 'profile' && (
+          <div className="bg-gray-800 rounded-lg border border-gray-700 p-6 max-w-3xl mx-auto">
+            <div className="flex flex-col items-center justify-center mb-6">
+              {/* Profile Picture */}
+              <div className="w-32 h-32 rounded-full bg-gray-700 overflow-hidden border-4 border-blue-600">
+                <Image
+                  src="/ppp.jpg"
+                  width={200}
+                  height={200}
+                  alt="Profile"
+                  className="object-cover"
+                  quality={100} // Increases the image quality
+                />
+              </div>
+              {/* User Information */}
+              <div className="mt-4 text-center">
+                <h2 className="text-3xl font-bold mb-2">Faria Mustaqim</h2>
+                <p className="text-lg text-gray-400 mb-4">Administrator</p>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <div className="border-b border-gray-700 pb-4 text-center">
+                <h3 className="font-semibold text-lg text-gray-300 mb-2">Contact Information</h3>
+                <p className="text-sm text-gray-400">Email: zainabmustaqeem123@hotmail.com</p>
+                <p className="text-sm text-gray-400">Phone: 0314-2238289</p>
+              </div>
+
+              <div className="flex justify-center space-x-6">
+                <div>
+                  <p className="text-2xl font-bold">131</p>
+                  <p className="text-sm text-gray-400">Followers</p>
+                </div>
+                <div>
+                  <p className="text-2xl font-bold">105</p>
+                  <p className="text-sm text-gray-400">Connections</p>
+                </div>
+                <div>
+                  <p className="text-2xl font-bold">32</p>
+                  <p className="text-sm text-gray-400">Repositories</p>
+                </div>
               </div>
             </div>
           </div>
         )}
 
-{activeTab === 'products' && (
-  <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
-    <h3 className="text-xl font-semibold mb-4">Product Inventory</h3>
-    <div className="overflow-x-auto">
-      <table className="w-full border-collapse border border-gray-700">
-        <thead className="bg-gray-700">
-          <tr>
-            <th className="p-3 text-left">Image</th>
-            <th className="p-3 text-left">ID</th>
-            <th className="p-3 text-left">Name</th>
-            <th className="p-3 text-left">Price</th>
-            <th className="p-3 text-left">Discount</th>
-            <th className="p-3 text-left">Rating</th>
-           
-            <th className="p-3 text-left">Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((product) => (
-            <tr key={product.id} className="border-b border-gray-700">
-              <td className="p-3">
-                <Image
-                  src={product.img}
-                  width={70}
-                  height={70}
-                  alt={product.title}
-                  className=" object-cover rounded-md"
-                />
-              </td>
-              <td className="p-3">{product.id}</td>
-              <td className="p-3 font-semibold">{product.title}</td>
-              <td className="p-3">{product.price}</td>
-              <td className="p-3">{product.discount || "N/A"}</td>
-              <td className="p-3">{product.rating} ⭐</td>
-             
-              <td className="p-3 text-gray-300">{product.description}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  </div>
-)}
-
-
-
-{activeTab === 'orders' && (
-  <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
-    <h3 className="text-xl font-semibold mb-4">Order History</h3>
-    <div className="overflow-x-auto">
-      <table className="w-full">
-        <thead className="bg-gray-700">
-          <tr>
-            <th className="p-3 text-left">Order ID</th>
-            <th className="p-3 text-left">Date</th>
-            <th className="p-3 text-left">Amount</th>
-            <th className="p-3 text-left">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {orders.map((order) => (
-            <tr key={order.id} className="border-b border-gray-700">
-              <td className="p-3">{order.id}</td>
-              <td className="p-3">{order.date} {order.time}</td>
-              <td className="p-3">${order.totalAmount}</td>
-              <td className="p-3">
-                <span className={`px-2 py-1 rounded-full text-xs ${order.status === 'Completed' ? 'bg-gray-600' : order.status === 'Shipped' ? 'bg-gray-500' : 'bg-gray-700'}`}>
-                  {order.status}
-                </span>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  </div>
-)}
-
-{activeTab === 'profile' && (
-  <div className="bg-gray-800 rounded-lg border border-gray-700 p-6 max-w-3xl mx-auto">
-    <div className="flex items-center justify-center mb-6">
-      {/* Profile Picture */}
-      <div className="w-32 h-32 rounded-full bg-gray-700 overflow-hidden border-4 border-blue-600">
-      <Image
-  src="/ppp.jpg"
-  width={200}
-  height={200}
-  alt="Profile"
-  className=" object-cover"
-  quality={100} // Increases the image quality
-/>
-      </div>
-      {/* User Information */}
-      <div className="ml-6 text-center">
-        <h2 className="text-3xl font-bold mb-2">Faria Mustaqim</h2>
-        <p className="text-lg text-gray-400 mb-4">Administrator</p>
-      </div>
-    </div>
-
-    <div className="space-y-4">
-      <div className="border-b border-gray-700 pb-4 text-center">
-        <h3 className="font-semibold text-lg text-gray-300 mb-2">Contact Information</h3>
-        <p className="text-sm text-gray-400">Email: zainabmustaqeem123@hotmail.com</p>
-        <p className="text-sm text-gray-400">Phone: 0314-2238289</p>
-      </div>
-
-      <div className="flex space-x-6 justify-center">
-        <div>
-          <p className="text-2xl font-bold">131</p>
-          <p className="text-sm text-gray-400">Followers</p>
-        </div>
-        <div>
-          <p className="text-2xl font-bold">105</p>
-          <p className="text-sm text-gray-400">Connections</p>
-        </div>
-        <div>
-          <p className="text-2xl font-bold">32</p>
-          <p className="text-sm text-gray-400">Repositories</p>
-        </div>
-      </div>
-    </div>
-  </div>
-)}
-
         {activeTab === 'revenue' && (
           <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {[
                 { title: 'Total Revenue', value: '$45,231' },
                 { title: 'Net Profit', value: '$32,543' },
@@ -584,25 +610,22 @@ export default function AdminDashboard() {
             <div className="bg-gray-800 rounded-lg border border-gray-700 p-6 flex justify-center">
               <div className="w-full max-w-md text-center">
                 <h3 className="text-xl font-semibold mb-4">Revenue Overview</h3>
-                <div className="w-full">
+                <div className="w-full h-64">
                   <Line data={revenueData} options={{ maintainAspectRatio: false }} />
                 </div>
               </div>
             </div>
             
-        {/* Pie Chart Section */}
-        <div className="w-full max-w-md mx-auto my-8">
-          <h4 className="text-lg font-semibold mb-4 flex items-center gap-2 justify-center">
-            <LucidePieChart size={24} className="text-green-500" />
-            Revenue Distribution
-          </h4>
-          <Pie data={pieData} options={{ responsive: true }} />
-        </div>
-      </div>
-    
-          
+            {/* Pie Chart Section */}
+            <div className="w-full max-w-md mx-auto my-8">
+              <h4 className="text-lg font-semibold mb-4 flex items-center gap-2 justify-center">
+                <LucidePieChart size={24} className="text-green-500" />
+                Revenue Distribution
+              </h4>
+              <Pie data={pieData} options={{ responsive: true }} />
+            </div>
+          </div>
         )}
-
       </div>
     </div>
   );
