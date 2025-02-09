@@ -20,6 +20,11 @@
   .text-balance {
     text-wrap: balance;
   }
+
+
+.font-integral {
+  font-family: var(--font-integral);
+}
 }
 
 @layer base {
