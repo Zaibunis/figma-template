@@ -720,7 +720,7 @@ const Page = () => {
     <section className="py-10 bg-white">
       {/* Header */}
       <div className="text-center mb-8 relative">
-        <h2 className="text-3xl font-extrabold text-black ml-[55px]">YOU MIGHT ALSO LIKE</h2>
+        <h2 className="text-3xl font-extrabold text-black">YOU MIGHT ALSO LIKE</h2>
       </div>
       <SecThree2/>
 
