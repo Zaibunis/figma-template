@@ -6,6 +6,11 @@ const isProtectedRoute = createRouteMatcher([
   '/comp/mens-clothes(.*)',
   '/comp/casual(.*)',
   '/comp/cart(.*)',
+  '/productOne(.*)',
+   '/productTwo(.*)',
+    '/productThree(.*)',
+     '/productFour(.*)',
+      
 ]);
 
 export default clerkMiddleware(async (auth, req) => {
