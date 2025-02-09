@@ -45,6 +45,12 @@ const SecThree2 = () => {
 
   return (
     <section className="text-gray-600 body-font">
+        <section className="py-10 mt-0 bg-white">
+    {/* Header */}
+    <div className="text-center mb-2 relative">
+      <h2 className="text-3xl font-extrabold text-black">TOP SELLING</h2>
+    </div>
+</section>
       <div className="container px-5 py-16 mx-auto">
         {loading ? (
           <div className="flex flex-col gap-4 items-center justify-center h-[80vh]">

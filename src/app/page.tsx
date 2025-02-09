@@ -1,8 +1,8 @@
 import Home from "./component/home"
 import Hero from "./component/hero"
 import Brands from "./component/brand"
-import NewArrivals from "./component/newArrivals/page"
-import TopSelling from "./component/TopSelling/page"
+
+
 import DressStyle from "./component/dressStyle";
 import DressStyleCard from "./component/dressStyleCard";
 import Review from "./component/review"
@@ -19,9 +19,9 @@ export default function Land() {
 <Hero />
 <Brands />
 <Chatbot/>
-<NewArrivals />
+
 <Main />
-<TopSelling />
+
 <Main2 />
 <DressStyle />
 <DressStyleCard title={""} url={""} />
